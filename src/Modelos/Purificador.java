@@ -13,9 +13,7 @@ package Modelos;
 public class Purificador {
     
     private int id;
-    private int idagua;
-    private int idaire;
-    private int idlinea;
+    private int nombre;
 
     public int getId() {
         return id;
@@ -25,29 +23,14 @@ public class Purificador {
         this.id = id;
     }
 
-    public int getIdagua() {
-        return idagua;
+    public int getNombre() {
+        return nombre;
     }
 
-    public void setIdagua(int idagua) {
-        this.idagua = idagua;
+    public void setNombre(int nombre) {
+        this.nombre = nombre;
     }
-
-    public int getIdaire() {
-        return idaire;
-    }
-
-    public void setIdaire(int idaire) {
-        this.idaire = idaire;
-    }
-
-    public int getIdlinea() {
-        return idlinea;
-    }
-
-    public void setIdlinea(int idlinea) {
-        this.idlinea = idlinea;
-    }
+   
     
     
     
