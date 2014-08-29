@@ -12,16 +12,21 @@ package Modelos;
  */
 public class Clientes {
     
+    private String cedula;
     private String cliente;
-    private int cc;
-    private String direccionresidensia;
-    private int telefonoresidensia;
-    private String direccionoficina;
-    private String correo;
-    private String referenciafamiliar1;
-    private int telefonofamiliar1;
-    private String referenciafamiliar2;
-    private int telefonofamiliar2;
+    private String direccion_casa;
+    private String telefono_casa;
+    private String direccion_oficina;
+    private String telefono_oficina;
+    private String corre;
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
 
     public String getCliente() {
         return cliente;
@@ -31,76 +36,44 @@ public class Clientes {
         this.cliente = cliente;
     }
 
-    public int getCc() {
-        return cc;
+    public String getDireccion_casa() {
+        return direccion_casa;
     }
 
-    public void setCc(int cc) {
-        this.cc = cc;
+    public void setDireccion_casa(String direccion_casa) {
+        this.direccion_casa = direccion_casa;
     }
 
-    public String getDireccionresidensia() {
-        return direccionresidensia;
+    public String getTelefono_casa() {
+        return telefono_casa;
     }
 
-    public void setDireccionresidensia(String direccionresidensia) {
-        this.direccionresidensia = direccionresidensia;
+    public void setTelefono_casa(String telefono_casa) {
+        this.telefono_casa = telefono_casa;
     }
 
-    public int getTelefonoresidensia() {
-        return telefonoresidensia;
+    public String getDireccion_oficina() {
+        return direccion_oficina;
     }
 
-    public void setTelefonoresidensia(int telefonoresidensia) {
-        this.telefonoresidensia = telefonoresidensia;
+    public void setDireccion_oficina(String direccion_oficina) {
+        this.direccion_oficina = direccion_oficina;
     }
 
-    public String getDireccionoficina() {
-        return direccionoficina;
+    public String getTelefono_oficina() {
+        return telefono_oficina;
     }
 
-    public void setDireccionoficina(String direccionoficina) {
-        this.direccionoficina = direccionoficina;
+    public void setTelefono_oficina(String telefono_oficina) {
+        this.telefono_oficina = telefono_oficina;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getCorre() {
+        return corre;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getReferenciafamiliar1() {
-        return referenciafamiliar1;
-    }
-
-    public void setReferenciafamiliar1(String referenciafamiliar1) {
-        this.referenciafamiliar1 = referenciafamiliar1;
-    }
-
-    public int getTelefonofamiliar1() {
-        return telefonofamiliar1;
-    }
-
-    public void setTelefonofamiliar1(int telefonofamiliar1) {
-        this.telefonofamiliar1 = telefonofamiliar1;
-    }
-
-    public String getReferenciafamiliar2() {
-        return referenciafamiliar2;
-    }
-
-    public void setReferenciafamiliar2(String referenciafamiliar2) {
-        this.referenciafamiliar2 = referenciafamiliar2;
-    }
-
-    public int getTelefonofamiliar2() {
-        return telefonofamiliar2;
-    }
-
-    public void setTelefonofamiliar2(int telefonofamiliar2) {
-        this.telefonofamiliar2 = telefonofamiliar2;
+    public void setCorre(String corre) {
+        this.corre = corre;
     }
     
     

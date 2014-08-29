@@ -18,6 +18,7 @@ import org.jvnet.substance.watermark.SubstanceImageWatermark;
  *
  * @author fabio
  */
+
 public class Principal extends javax.swing.JFrame {
 
     
