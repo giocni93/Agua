@@ -27,7 +27,7 @@ public class ClienteDAO {
             con.Conectar();
             sql = "Insert into cliente(cedula,cliente,direccion_casa,telefono_casa,direccion_oficina,telefono_oficina,correo)"
                     + "values('"+c.getCedula()+"','"+c.getCliente()+"','"+c.getDireccion_casa()+"','"+c.getTelefono_casa()+"','"
-                    +c.getDireccion_oficina()+"','"+c.getTelefono_oficina()+"','"+c.getCorre()+"';";
+                    +c.getDireccion_oficina()+"','"+c.getTelefono_oficina()+"','"+c.getCorre()+"');";
             PreparedStatement pst = con.getConexion().prepareStatement(sql);
             return pst.executeUpdate()>0;
         } catch (SQLException e) {

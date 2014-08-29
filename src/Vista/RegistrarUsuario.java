@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class RegistrarUsuario extends javax.swing.JFrame {
 
     ClienteControl cliente;
-    Clientes cli = new Clientes();
+    Clientes cli;
     
     public RegistrarUsuario() {
         initComponents();
@@ -148,6 +148,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_ccActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cli = new Clientes();
         cli.setCedula(cc.getText());
         cli.setCliente(clie.getText());
         cli.setDireccion_casa(dir_casa.getText());
