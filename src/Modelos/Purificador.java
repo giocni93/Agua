@@ -12,26 +12,41 @@ package Modelos;
  */
 public class Purificador {
     
-    private int id;
-    private int nombre;
+    private long id;
+    private String nombre;
+    private long cantidad;
+    private long valor;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public long getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(long cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public long getValor() {
+        return valor;
+    }
+
+    public void setValor(long valor) {
+        this.valor = valor;
+    }
    
-    
-    
-    
 }
