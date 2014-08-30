@@ -41,6 +41,39 @@ public class PurificadorDAO {
         }
     }
     
+    public boolean modificarPurificador(Purificador c,long id_pur) throws ClassNotFoundException
+    {
+        try {
+            con = new Conexion();
+            con.Conectar();
+            sql = "UPDATE purificador set "
+                    + "nombre = '" + c.getNombre() + "',"
+                    + "cantidad = " + c.getCantidad() + ","
+                    + "valor = " + c.getValor() + " "
+                    + "WHERE id = " + id_pur + ";";
+            PreparedStatement pst = con.getConexion().prepareStatement(sql);
+            return pst.executeUpdate()>0;
+        } catch (SQLException e) {
+            ex = "error: "+e.getMessage();
+            return false;
+        }
+    }
+    
+    public boolean eliminarPurificador(long id_pur) throws ClassNotFoundException
+    {
+        try {
+            con = new Conexion();
+            con.Conectar();
+            sql = "DELETE FROM purificador WHERE "
+                    + "id = " + id_pur + ";";
+            PreparedStatement pst = con.getConexion().prepareStatement(sql);
+            return pst.executeUpdate()>0;
+        } catch (SQLException e) {
+            ex = "error: "+e.getMessage();
+            return false;
+        }
+    }
+    
     public ArrayList<Purificador> listaPurificadores(String val) throws ClassNotFoundException
     {
         ArrayList<Purificador> listaPur = new ArrayList();

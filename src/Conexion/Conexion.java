@@ -18,7 +18,7 @@ public class Conexion {
     public Conexion()
     {
         usuario = "root";
-        password = "chester123456";
+        password = "";
         db = "purificadores";
         servidor = "jdbc:mysql://localhost/"+ db;
     }

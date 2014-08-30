@@ -34,6 +34,34 @@ public class PurificadorControl {
         }
     }
     
+    public boolean modificarPurificador(Purificador pu,long id_pur) throws ClassNotFoundException
+    {
+        purDao = new PurificadorDAO();
+        if(purDao.modificarPurificador(pu,id_pur))
+        {
+            JOptionPane.showMessageDialog(null, "Modificado correctamente.");
+            return true;
+        }else
+        {
+            JOptionPane.showMessageDialog(null, purDao.ex);
+            return false;
+        }
+    }
+    
+    public boolean eliminarPurificador(long id_pur) throws ClassNotFoundException
+    {
+        purDao = new PurificadorDAO();
+        if(purDao.eliminarPurificador(id_pur))
+        {
+            JOptionPane.showMessageDialog(null, "Eliminado correctamente.");
+            return true;
+        }else
+        {
+            JOptionPane.showMessageDialog(null, purDao.ex);
+            return false;
+        }
+    }
+    
     public ArrayList<Purificador> listaPurificador(String val)
     {
         ArrayList<Purificador> listaPur = null;

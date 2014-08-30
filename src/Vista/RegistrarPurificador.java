@@ -8,6 +8,7 @@ package Vista;
 
 import Controlador.PurificadorControl;
 import Modelos.Purificador;
+import Utiles.Metodos;
 import Utiles.modelJTPurificador;
 import javax.swing.JOptionPane;
 
@@ -19,11 +20,19 @@ public class RegistrarPurificador extends javax.swing.JFrame {
 
     Purificador pur;
     PurificadorControl purCon;
+    Metodos met;
+    private long id_pur;
     
     modelJTPurificador modelPur;
     
     public RegistrarPurificador() {
         initComponents();
+        
+        met = new Metodos();
+        
+        met.Solo_Numeros(txtValor);
+        met.Solo_Numeros(txtCantidad);
+        met.Limite_Caracteres(txtNombre, 50);
         cargar_tabla("");
     }
     
@@ -32,6 +41,13 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         txtNombre.setText(null);
         txtCantidad.setText(null);
         txtValor.setText(null);
+    }
+    
+    private void estado_botones(boolean estado)
+    {
+        btnRegistrar.setEnabled(!estado);
+        btnModificar.setEnabled(estado);
+        btnEliminar.setEnabled(estado);
     }
     
     private void cargar_tabla(String val)
@@ -56,7 +72,7 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        btnLimpiar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -77,10 +93,10 @@ public class RegistrarPurificador extends javax.swing.JFrame {
 
         jLabel3.setText("Valor:");
 
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -92,8 +108,20 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Guardar Cambios");
+        btnModificar.setEnabled(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,8 +147,8 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(btnLimpiar)
+                .addGap(70, 70, 70)
+                .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegistrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -148,7 +176,7 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                         .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpiar)
+                    .addComponent(btnCancelar)
                     .addComponent(btnRegistrar)
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar))
@@ -166,6 +194,11 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPurificador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPurificadorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPurificador);
 
         jLabel4.setText("Lista de purificadores");
@@ -236,7 +269,7 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         try {
             if(purCon.insertarPurificador(pur))
             {
-                limpiar_campos();
+                btnCancelarActionPerformed(null);
                 cargar_tabla("");
             }
         } catch (ClassNotFoundException ex) {
@@ -254,9 +287,63 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiar_campos();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+        estado_botones(false);
+        tablaPurificador.clearSelection();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void tablaPurificadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPurificadorMouseClicked
+
+        Purificador p;
+        
+        p = modelPur.getFila(tablaPurificador.getSelectedRow());
+        limpiar_campos();
+        txtNombre.setText(p.getNombre());
+        txtCantidad.setText(String.valueOf(p.getCantidad()));
+        txtValor.setText(String.valueOf(p.getValor()));
+        
+        id_pur = p.getId();
+        //habilito y deshabilito los botones
+        estado_botones(true);
+        
+    }//GEN-LAST:event_tablaPurificadorMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        pur = new Purificador();
+        pur.setNombre(txtNombre.getText());
+        pur.setCantidad(Long.parseLong(txtCantidad.getText()));
+        pur.setValor(Long.parseLong(txtValor.getText()));
+        
+        purCon = new PurificadorControl();
+        
+        try {
+            if(purCon.modificarPurificador(pur,id_pur))
+            {
+                btnCancelarActionPerformed(null);
+                cargar_tabla("");
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int op = JOptionPane.showConfirmDialog(null,"Estás seguro de eliminar el purificador '"+id_pur+"' del sistema ?","Eliminar",JOptionPane.YES_NO_OPTION);
+        if (op == 0)
+        {
+            purCon = new PurificadorControl();
+            try {
+            if(purCon.eliminarPurificador(id_pur))
+            {
+                btnCancelarActionPerformed(null);
+                cargar_tabla("");
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,8 +381,8 @@ public class RegistrarPurificador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
