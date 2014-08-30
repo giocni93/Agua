@@ -8,6 +8,9 @@ package Controlador;
 
 import Modelos.Purificador;
 import Modelos.PurificadorDAO;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,16 +20,33 @@ import javax.swing.JOptionPane;
 public class PurificadorControl {
     
     PurificadorDAO purDao;
-    public void insertarPurificador(Purificador pu) throws ClassNotFoundException
+    public boolean insertarPurificador(Purificador pu) throws ClassNotFoundException
     {
         purDao = new PurificadorDAO();
         if(purDao.guardarPurificador(pu))
         {
             JOptionPane.showMessageDialog(null, "Guardado correctamente.");
+            return true;
         }else
         {
             JOptionPane.showMessageDialog(null, purDao.ex);
+            return false;
         }
+    }
+    
+    public ArrayList<Purificador> listaPurificador(String val)
+    {
+        ArrayList<Purificador> listaPur = null;
+        purDao = new PurificadorDAO();
+        try 
+        {
+            listaPur = purDao.listaPurificadores(val);
+        } 
+        catch(ClassNotFoundException ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return listaPur;
     }
     
 }

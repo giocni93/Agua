@@ -8,6 +8,7 @@ package Vista;
 
 import Controlador.PurificadorControl;
 import Modelos.Purificador;
+import Utiles.modelJTPurificador;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,8 +20,29 @@ public class RegistrarPurificador extends javax.swing.JFrame {
     Purificador pur;
     PurificadorControl purCon;
     
+    modelJTPurificador modelPur;
+    
     public RegistrarPurificador() {
         initComponents();
+        cargar_tabla("");
+    }
+    
+    private void limpiar_campos()
+    {
+        txtNombre.setText(null);
+        txtCantidad.setText(null);
+        txtValor.setText(null);
+    }
+    
+    private void cargar_tabla(String val)
+    {
+        modelPur = new modelJTPurificador();
+        purCon = new PurificadorControl();
+        
+        modelPur.setLsDatos(purCon.listaPurificador(val));
+        
+        tablaPurificador.setModel(modelPur);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -34,13 +56,12 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        btnNuevo = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaPurificador = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -56,9 +77,12 @@ public class RegistrarPurificador extends javax.swing.JFrame {
 
         jLabel3.setText("Valor:");
 
-        btnNuevo.setText("Nuevo");
-
-        btnCancelar.setText("Cancelar");
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setText("Registrar Nuevo");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +108,7 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGap(18, 18, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -92,20 +116,18 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                             .addComponent(txtNombre))
                         .addGap(21, 21, 21))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(btnNuevo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnRegistrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnModificar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEliminar)))
+                        .addComponent(jLabel1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(btnLimpiar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegistrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,15 +148,14 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                         .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnCancelar)
+                    .addComponent(btnLimpiar)
                     .addComponent(btnRegistrar)
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPurificador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -145,13 +166,24 @@ public class RegistrarPurificador extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaPurificador);
 
         jLabel4.setText("Lista de purificadores");
+
+        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltroKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("Filtro:");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,13 +234,29 @@ public class RegistrarPurificador extends javax.swing.JFrame {
         purCon = new PurificadorControl();
         
         try {
-            purCon.insertarPurificador(pur);
+            if(purCon.insertarPurificador(pur))
+            {
+                limpiar_campos();
+                cargar_tabla("");
+            }
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
+        cargar_tabla(txtFiltro.getText());
+    }//GEN-LAST:event_txtFiltroKeyReleased
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar_campos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,10 +294,9 @@ public class RegistrarPurificador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
@@ -259,7 +306,7 @@ public class RegistrarPurificador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaPurificador;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtNombre;
