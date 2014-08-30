@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 24-08-2014 a las 21:14:14
--- Versión del servidor: 5.6.14
--- Versión de PHP: 5.5.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 30-08-2014 a las 18:00:48
+-- Versión del servidor: 5.6.16
+-- Versión de PHP: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `purificadores`
 --
+CREATE DATABASE IF NOT EXISTS `purificadores` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `purificadores`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cliente`
 --
 
+DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `cedula` varchar(15) NOT NULL,
   `cliente` varchar(50) NOT NULL,
@@ -43,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- Estructura de tabla para la tabla `detalle_factura`
 --
 
+DROP TABLE IF EXISTS `detalle_factura`;
 CREATE TABLE IF NOT EXISTS `detalle_factura` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_factura` bigint(20) NOT NULL,
@@ -55,24 +59,10 @@ CREATE TABLE IF NOT EXISTS `detalle_factura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detalle_purificador`
---
-
-CREATE TABLE IF NOT EXISTS `detalle_purificador` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `detalle` varchar(50) NOT NULL,
-  `id_tipo` bigint(20) NOT NULL,
-  `valor` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_tipo` (`id_tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `factura`
 --
 
+DROP TABLE IF EXISTS `factura`;
 CREATE TABLE IF NOT EXISTS `factura` (
   `id` bigint(20) NOT NULL,
   `fecha` date NOT NULL,
@@ -91,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `factura` (
 -- Estructura de tabla para la tabla `orden_instalacion`
 --
 
+DROP TABLE IF EXISTS `orden_instalacion`;
 CREATE TABLE IF NOT EXISTS `orden_instalacion` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
@@ -107,9 +98,12 @@ CREATE TABLE IF NOT EXISTS `orden_instalacion` (
 -- Estructura de tabla para la tabla `purificador`
 --
 
+DROP TABLE IF EXISTS `purificador`;
 CREATE TABLE IF NOT EXISTS `purificador` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
+  `cantidad` bigint(20) NOT NULL,
+  `valor` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -119,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `purificador` (
 -- Estructura de tabla para la tabla `recibo_provicional`
 --
 
+DROP TABLE IF EXISTS `recibo_provicional`;
 CREATE TABLE IF NOT EXISTS `recibo_provicional` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
@@ -137,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `recibo_provicional` (
 -- Estructura de tabla para la tabla `referencias`
 --
 
+DROP TABLE IF EXISTS `referencias`;
 CREATE TABLE IF NOT EXISTS `referencias` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
@@ -154,9 +150,11 @@ CREATE TABLE IF NOT EXISTS `referencias` (
 -- Estructura de tabla para la tabla `tipo_purificador`
 --
 
+DROP TABLE IF EXISTS `tipo_purificador`;
 CREATE TABLE IF NOT EXISTS `tipo_purificador` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(50) NOT NULL,
+  `detalle` varchar(255) NOT NULL,
   `id_purificador` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_purificador` (`id_purificador`)
@@ -172,12 +170,6 @@ CREATE TABLE IF NOT EXISTS `tipo_purificador` (
 ALTER TABLE `detalle_factura`
   ADD CONSTRAINT `id_pur_detalle` FOREIGN KEY (`id_purificador`) REFERENCES `purificador` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `id_fac_detalle` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalle_purificador`
---
-ALTER TABLE `detalle_purificador`
-  ADD CONSTRAINT `id_detalle_pu` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_purificador` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `factura`
