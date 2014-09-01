@@ -52,6 +52,7 @@ public class RegistrarPurificador extends javax.swing.JFrame {
     
     private void cargar_tabla(String val)
     {
+        
         modelPur = new modelJTPurificador();
         purCon = new PurificadorControl();
         
