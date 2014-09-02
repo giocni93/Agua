@@ -29,7 +29,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     public RegistrarUsuario() {
         initComponents();
         cargartablas("");
-        cc.setEnabled(false);
+        
     }
     
     public void limpiar_campos()
@@ -74,6 +74,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jmodificar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbclientes = new javax.swing.JTable();
@@ -125,6 +126,13 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Eliminar Cliente");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,7 +172,9 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jmodificar)))
+                        .addComponent(jmodificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -198,7 +208,8 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jmodificar)
-                    .addComponent(cancelar))
+                    .addComponent(cancelar)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -334,7 +345,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     private void tbclientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbclientesMouseClicked
         // TODO add your handling code here:
         Clientes c;
-        
+        cc.setEnabled(false);
         c = modelcli.getFila(tbclientes.getSelectedRow());
         clie.setText(c.getCliente());
         cc.setText(c.getCedula());
@@ -350,7 +361,26 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         limpiar_campos();
         tbclientes.clearSelection();
+        cc.setEnabled(true);
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int op = JOptionPane.showConfirmDialog(null,"Estás seguro de eliminar el purificador '"+id_cliente+"' del sistema ?","Eliminar",JOptionPane.YES_NO_OPTION);
+        if(op==0)
+        {
+            cliente = new ClienteControl();
+            id_cliente = cc.getText();
+            try {
+                if(cliente.eliminarcliente(id_cliente))
+                {
+                    cargartablas("");
+                }
+            } catch (ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,6 +425,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField dir_casa;
     private javax.swing.JTextField dir_ofi;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

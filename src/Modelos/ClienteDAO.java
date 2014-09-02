@@ -69,6 +69,7 @@ public class ClienteDAO {
             con.Conectar();
             sql = "Delete from cliente where cedula='"+id+"'";
             PreparedStatement pst = con.getConexion().prepareStatement(sql);
+            System.out.println(sql);
             return pst.executeUpdate()>0;
         } catch (SQLException e) {
             ex = "Error: " + e.getMessage();
