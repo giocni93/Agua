@@ -46,13 +46,14 @@ public class ClienteDAO {
             con = new Conexion();
             con.Conectar();
             sql = "Update cliente set "
-                    + "cliente='"+c.getCliente()+"'"
-                    + "direccion_casa='"+c.getDireccion_casa()+"'"
-                    + "telefono_casa='"+c.getTelefono_casa()+"'"
-                    + "direccion_oficina='"+c.getDireccion_oficina()+"'"
-                    + "telefono_oficina='"+c.getTelefono_oficina()+"'"
+                    + "cliente='"+c.getCliente()+"',"
+                    + "direccion_casa='"+c.getDireccion_casa()+"',"
+                    + "telefono_casa='"+c.getTelefono_casa()+"',"
+                    + "direccion_oficina='"+c.getDireccion_oficina()+"',"
+                    + "telefono_oficina='"+c.getTelefono_oficina()+"',"
                     + "correo='"+c.getCorre()+"'"
                     + "where cedula='"+id+"';";
+            System.out.println(sql);
             PreparedStatement pst = con.getConexion().prepareStatement(sql);
             return pst.executeUpdate()>0;
         } catch (SQLException e) {

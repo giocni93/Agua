@@ -51,6 +51,7 @@ public class PurificadorDAO {
                     + "cantidad = " + c.getCantidad() + ","
                     + "valor = " + c.getValor() + " "
                     + "WHERE id = " + id_pur + ";";
+            System.out.println(sql);
             PreparedStatement pst = con.getConexion().prepareStatement(sql);
             return pst.executeUpdate()>0;
         } catch (SQLException e) {

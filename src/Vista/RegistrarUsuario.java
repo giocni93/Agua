@@ -24,10 +24,12 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     Clientes cli;
     Metodos met;
     modelJTClientes modelcli;
+    private String id_cliente;
     
     public RegistrarUsuario() {
         initComponents();
         cargartablas("");
+        cc.setEnabled(false);
     }
     
     public void limpiar_campos()
@@ -71,6 +73,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         tel_ofi = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jmodificar = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbclientes = new javax.swing.JTable();
@@ -108,10 +111,17 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             }
         });
 
-        jmodificar.setText("Guardar Cambios");
+        jmodificar.setText("Modificar Cambios");
         jmodificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmodificarActionPerformed(evt);
+            }
+        });
+
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
             }
         });
 
@@ -149,7 +159,9 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(clie, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
+                        .addGap(118, 118, 118)
+                        .addComponent(cancelar)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jmodificar)))
@@ -185,7 +197,8 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jmodificar))
+                    .addComponent(jmodificar)
+                    .addComponent(cancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -298,7 +311,23 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
     private void jmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodificarActionPerformed
         // TODO add your handling code here:
+        cli = new Clientes();
+        id_cliente = cc.getText();
+        cli.setCliente(clie.getText());
+        cli.setCorre(correo.getText());
+        cli.setDireccion_casa(dir_casa.getText());
+        cli.setDireccion_oficina(dir_ofi.getText());
+        cli.setTelefono_casa(tel_casa.getText());
+        cli.setTelefono_oficina(tel_ofi.getText());
         
+        cliente = new ClienteControl();
+        try {
+            if(cliente.modificarCliente(cli, id_cliente))
+            {
+                cargartablas("");
+            }
+        } catch (Exception e) {
+        }
         
     }//GEN-LAST:event_jmodificarActionPerformed
 
@@ -316,6 +345,12 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         correo.setText(c.getCorre());
         
     }//GEN-LAST:event_tbclientesMouseClicked
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        // TODO add your handling code here:
+        limpiar_campos();
+        tbclientes.clearSelection();
+    }//GEN-LAST:event_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,6 +388,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelar;
     private javax.swing.JTextField cc;
     private javax.swing.JTextField clie;
     private javax.swing.JTextField correo;
