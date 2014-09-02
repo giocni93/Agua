@@ -102,6 +102,9 @@ public class ClienteDAO {
         cliente.setCliente(rs.getString("cliente"));
         cliente.setDireccion_casa(rs.getString("direccion_casa"));
         cliente.setTelefono_casa(rs.getString("telefono_casa"));
+        cliente.setDireccion_oficina(rs.getString("direccion_oficina"));
+        cliente.setTelefono_oficina(rs.getString("telefono_oficina"));
+        cliente.setCorre(rs.getString("correo"));
         return cliente;
     }
     

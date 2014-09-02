@@ -308,6 +308,13 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         
         c = modelcli.getFila(tbclientes.getSelectedRow());
         clie.setText(c.getCliente());
+        cc.setText(c.getCedula());
+        dir_casa.setText(c.getDireccion_casa());
+        dir_ofi.setText(c.getDireccion_oficina());
+        tel_casa.setText(c.getTelefono_casa());
+        tel_ofi.setText(c.getTelefono_oficina());
+        correo.setText(c.getCorre());
+        
     }//GEN-LAST:event_tbclientesMouseClicked
 
     /**
