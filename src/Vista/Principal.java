@@ -27,8 +27,8 @@ public class Principal extends javax.swing.JFrame {
         
         initComponents();
         this.setTitle("SOFTWARE DE PURIFICADORES DE AGUA");
-        this.setMinimumSize(new Dimension(1365, 745));
-        this.setPreferredSize(new Dimension(1365, 745));
+        //this.setMinimumSize(new Dimension(1365, 745));
+        //this.setPreferredSize(new Dimension(1365, 745));
       
     }
 
@@ -51,7 +51,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(600, 800));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Inventory-maintenance-icon.png"))); // NOI18N
 
@@ -101,6 +101,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem2.setForeground(java.awt.Color.white);
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/invoice-icon.png"))); // NOI18N
         jMenuItem2.setText("Nueva Factura");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -122,6 +127,11 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        RegistrarPurificador g = new RegistrarPurificador();
+        g.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +167,7 @@ public class Principal extends javax.swing.JFrame {
                 Principal.setDefaultLookAndFeelDecorated(true);
                 SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.MistSilverSkin");
                 SubstanceLookAndFeel.setCurrentTheme( "org.jvnet.substance.theme.SubstanceTheme" );
-                SubstanceLookAndFeel.setCurrentWatermark( new SubstanceImageWatermark("Imagenes/Fondo.png"));
+                //SubstanceLookAndFeel.setCurrentWatermark( new SubstanceImageWatermark("Imagenes/Fondo.png"));
                 //SubstanceLookAndFeel.setCurrentWatermark(new SubstanceBinaryWatermark());
                 SubstanceLookAndFeel.setImageWatermarkOpacity(new Float(0.9));
                 new Principal().setVisible(true);

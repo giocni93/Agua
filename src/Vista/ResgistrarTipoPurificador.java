@@ -201,9 +201,9 @@ public class ResgistrarTipoPurificador extends javax.swing.JFrame {
         tipoPur.setId_purificador(id_purificador);
         
         String detalle = "";
-        for(int i = 0 ; i < modelJTDetalle.getRowCount() ; i++)
+        for(int i = 0 ; i < tablaDetalle.getRowCount() ; i++)
         {
-            detalle += modelJTDetalle.getValueAt(i,0).toString();
+            detalle += tablaDetalle.getValueAt(i,0).toString();
             detalle += ";";
         }
         
